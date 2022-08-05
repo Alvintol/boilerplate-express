@@ -24,10 +24,15 @@ app.get('/json', (req, res) =>
 app.get('/now', (req, res, next) => {
   req.time = new Date().toString();
   next();
-},(req, res) => {
-  res.send({time: req.time})
+}, (req, res) => {
+  res.send({ time: req.time })
 });
 
+
+app.get('/:word/echo', (req, res) => {
+  const { word } = req.params;
+  res.send({ echo: word })
+})
 
 
 
