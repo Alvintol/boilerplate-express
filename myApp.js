@@ -28,11 +28,15 @@ app.get('/now', (req, res, next) => {
   res.send({ time: req.time })
 });
 
-
 app.get('/:word/echo', (req, res) => {
   const { word } = req.params;
   res.send({ echo: word })
-})
+});
+
+app.get('/name', (req, res) => {
+  const { first, last } = req.query;
+  res.send({ name: `${first} ${last}` })
+});
 
 
 
