@@ -4,15 +4,21 @@ let app = express();
 
 app.get('/', (req, res) => {
   path = __dirname + '/views/index.html';
-  
+
   res.sendFile(path)
 })
 app.use('/public', express.static(__dirname + '/public'))
 
-app.get('/json', (req, res) => 
+app.use('*', (req, res, next) => {
+  express.static('root',
+    console.log(`${req.method} ${req.path} - ${req.ip}`));
+  next();
+})
+
+app.get('/json', (req, res) =>
   process.env.MESSAGE_STYLE === 'uppercase' ?
-  res.json({'message': 'HELLO JSON'}):
-  res.json({'message': 'Hello json'})
+    res.json({ 'message': 'HELLO JSON' }) :
+    res.json({ 'message': 'Hello json' })
 )
 
 
@@ -38,6 +44,4 @@ app.get('/json', (req, res) =>
 
 
 
-
-
- module.exports = app;
+module.exports = app;
